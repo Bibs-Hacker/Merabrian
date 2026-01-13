@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Brian Suggestions</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js"></script>
+</head>
+<body>
+    <header>
+        <h1 class="neon-title">Tech Brian Suggestions</h1>
+        <div class="theme-toggle">
+            <button id="theme-btn">Toggle Theme 🌌 / ⚡</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Login Section -->
+        <section id="auth-section" class="active">
+            <div id="login-form">
+                <h2>Login</h2>
+                <input type="text" id="login-username" placeholder="Email or Username">
+                <div class="password-wrapper">
+                    <input type="password" id="login-password" placeholder="Password">
+                    <span class="eye-icon" onclick="togglePassword('login-password')">👁️</span>
+                </div>
+                <button onclick="login()">Login</button>
+                <p>Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+            </div>
+            <div id="register-form" style="display: none;">
+                <h2>Register</h2>
+                <input type="text" id="reg-username" placeholder="Username">
+                <input type="email" id="reg-email" placeholder="Email">
+                <div class="password-wrapper">
+                    <input type="password" id="reg-password" placeholder="Password">
+                    <span class="eye-icon" onclick="togglePassword('reg-password')">👁️</span>
+                </div>
+                <input type="file" id="reg-profile-pic" accept="image/*">
+                <button onclick="register()">Register</button>
+                <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" style="display: none;">
+            <h2>Welcome, <span id="user-name"></span></h2>
+            <img id="user-profile-pic" src="" alt="Profile Pic" style="display: none;">
+            <button onclick="showEditProfile()">Edit Profile</button>
+            <button onclick="showSuggestionForm()">Submit Suggestion</button>
+            <button onclick="showContact()">Contact Tech Brian</button>
+            <button id="admin-btn" onclick="showAdminLogin()" style="display: none;">Admin Inbox <span id="admin-badge" class="badge">0</span></button>
+            <button onclick="logout()">Logout</button>
+
+            <div id="edit-profile" style="display: none;">
+                <h3>Edit Profile</h3>
+                <input type="text" id="edit-username" placeholder="New Username">
+                <div class="password-wrapper">
+                    <input type="password" id="edit-password" placeholder="New Password">
+                    <span class="eye-icon" onclick="togglePassword('edit-password')">👁️</span>
+                </div>
+                <input type="file" id="edit-profile-pic" accept="image/*">
+                <button onclick="updateProfile()">Update</button>
+            </div>
+
+            <h3>Your Suggestions</h3>
+            <ul id="user-suggestions"></ul>
+        </section>
+
+        <!-- Suggestion Form -->
+        <section id="suggestion-form-section" style="display: none;">
+            <h2>Submit Suggestion</h2>
+            <input type="text" id="sugg-topic" placeholder="Topic / Theme">
+            <textarea id="sugg-body" placeholder="Detailed Suggestion"></textarea>
+            <button onclick="submitSuggestion()">Submit</button>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact-section" style="display: none;">
+            <h2>Contact Tech Brian</h2>
+            <button onclick="contactWhatsApp()">WhatsApp Me: 254748950572</button>
+            <button onclick="contactEmail()">Email Me: bridah888@gmail.com</button>
+            <button onclick="contactCall()">Call Me: 0748950572</button>
+        </section>
+
+        <!-- Admin Login -->
+        <section id="admin-login-section" style="display: none;">
+            <h2>Admin Login</h2>
+            <div class="password-wrapper">
+                <input type="password" id="admin-password" placeholder="Admin Password">
+                <span class="eye-icon" onclick="togglePassword('admin-password')">👁️</span>
+            </div>
+            <button onclick="adminLogin()">Enter</button>
+        </section>
+
+        <!-- Admin Inbox -->
+        <section id="admin-inbox-section" style="display: none;">
+            <h2>Admin Inbox</h2>
+            <ul id="admin-suggestions"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Powered by Tech Brian • Merab • Neon Edition • ©2026</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>
